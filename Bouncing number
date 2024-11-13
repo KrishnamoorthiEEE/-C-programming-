@@ -1,0 +1,38 @@
+//Bouncing Number//
+#include<stdio.h>
+int isBouncy(int n)
+{
+    int increasing =1,decreasing =1;
+    int lastDigit = n%10;
+    n/=10;
+    while(n>0)
+    {
+        int currentDigit =n%10;
+        if(currentDigit < lastDigit)
+        {
+            increasing= 0;
+        }
+        else if (currentDigit > lastDigit)
+        {
+            decreasing=0;
+        }
+         lastDigit =currentDigit;
+        n/=10;
+    }
+    return !(increasing || decreasing);
+}
+int main()
+{
+    int n;
+    printf("Enter a number : ");
+    scanf("%d",&n);
+    if (isBouncy(n))
+    {
+        printf("True\n");
+    }
+    else
+    {
+        printf("False\n");
+    }
+    return 0;
+}
