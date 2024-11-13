@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+int extract_number(const char *str) {
+    int num = 0;
+    while (*str) {
+        if (isdigit(*str)) {
+            num = num * 10 + (*str - '0');
+        }
+        str++;
+    }
+    return num;
+}
+
+int main() {
+    char input[1000];
+    int N;
+
+    // Read the input list of strings
+    fgets(input, sizeof(input), stdin);
+    // Remove the newline character at the end of the input
+    input[strcspn(input, "\n")] = '\0';
+
+    // Read the number N
+    scanf("%d", &N);
+
+    // Split the input string by commas
+    char *token = strtok(input, ",");
+    int position = 1;
+    int found = 0;
+
+    while (token != NULL) {
+        int num = extract_number(token);
+        if (num % N == 0) {
+            if (found) {
+                printf(",");
+            }
+            printf("%d", position);
+            found = 1;
+        }
+        token = strtok(NULL, ",");
+        position++;
+    }
+
+    if (!found) {
+        printf("-1");
+    }
+
+    printf("\n");
+    return 0;
+}
